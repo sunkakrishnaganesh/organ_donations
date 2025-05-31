@@ -1240,14 +1240,13 @@
             </div>
             
             <form id="donor-registration-form" action="https://formsubmit.co/krishna.sunka2004@gmail.com" method="POST">
-                <!-- FormSubmit Configuration -->
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_subject" value="New Organ Donor Registration">
-                <input type="hidden" name="_autoresponse" value="Thank you for registering as an organ donor with LifeShare.">
-                <input type="hidden" name="_next" value="https://sunkakrishnaganesh.github.io/organ_donations/thank-you.html">
-                <input type="hidden" name="_cc" value="another-admin@example.com">
-                <input type="hidden" name="_replyto" value="">
-                <input type="hidden" name="_captcha" value="false">
+    <!-- FormSubmit Configuration -->
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_subject" value="New Organ Donor Registration">
+            <input type="hidden" name="_autoresponse" value="Thank you for registering as an organ donor with LifeShare.">
+            <input type="hidden" name="_next" value="https://sunkakrishnaganesh.github.io/organ_donations/thank-you.html">
+            <input type="hidden" name="_replyto" value="">
+            <input type="hidden" name="_captcha" value="false">
 
                 <div class="form-body">
                     <!-- Step 1: Personal Information -->
@@ -1652,7 +1651,7 @@
     
     <script>
         // Form submission handler
-document.getElementById('donor-registration-form').addEventListener('submit', function(e) {
+form.addEventListener('submit', function(e) {
     // Set the reply-to field to the user's email
     const userEmail = document.getElementById('email').value;
     document.querySelector('input[name="_replyto"]').value = userEmail;
@@ -1680,11 +1679,10 @@ document.getElementById('donor-registration-form').addEventListener('submit', fu
     
     if (!allValid) {
         e.preventDefault();
-        alert('Please complete all required fields before submitting.');
-    } else {
-        // Optional: Track form submission
-        console.log('Form submitted successfully');
+        return false;
     }
+    
+    return true;
 });
         document.getElementById('donor-registration-form').addEventListener('submit', function () {
         const email = document.getElementById('email').value;
@@ -1919,23 +1917,6 @@ document.getElementById('donor-registration-form').addEventListener('submit', fu
         });
         
         // Form submission
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            if (validateStep(currentStep)) {
-                // Simulate form submission
-                alert('Thank you for registering as an organ donor! Your information has been submitted.');
-                form.reset();
-                currentStep = 0;
-                updateForm();
-                
-                // Scroll to top
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
-        });
         
         // Initialize form
         updateForm();
