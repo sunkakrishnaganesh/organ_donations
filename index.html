@@ -971,9 +971,12 @@
         }
         
         .loading.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    z-index: -1;
+}
+
         
         .heart {
             width: 50px;
@@ -1208,7 +1211,7 @@
     
     <!-- Registration Form Section -->
     <!-- Registration Form Section -->
-<section class="registration" id="register">
+    <section class="registration" id="register">
     <div class="container">
         <div class="section-title">
             <h2>Become an Organ Donor</h2>
@@ -1240,12 +1243,13 @@
             </div>
             
             <form id="donor-registration-form" action="https://formsubmit.co/krishna.sunka2004@gmail.com" method="POST">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_subject" value="New Organ Donor Registration">
-            <input type="hidden" name="_autoresponse" value="Thank you for registering as an organ donor with LifeShare.">
-            <input type="hidden" name="_next" value="https://sunkakrishnaganesh.github.io/organ_donations/thank-you.html">
-            <input type="hidden" name="_replyto" value="">
-            <input type="hidden" name="_captcha" value="false">
+                <!-- FormSubmit Configuration -->
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_subject" value="New Organ Donor Registration">
+                <input type="hidden" name="_autoresponse" value="Thank you for registering as an organ donor with LifeShare.">
+                <input type="hidden" name="_next" value="https://sunkakrishnaganesh.github.io/organ_donations/thank-you.html">
+                <input type="hidden" name="_replyto" value="">
+                <input type="hidden" name="_captcha" value="false">
 
                 <div class="form-body">
                     <!-- Step 1: Personal Information -->
@@ -1647,130 +1651,45 @@
             </div>
         </div>
     </footer>
-    
     <script>
-        // Enhanced form submission handler
-document.getElementById('donor-registration-form').addEventListener('submit', function(e) {
-    // Set the reply-to field to the user's email
-    const userEmail = document.getElementById('email').value;
-    document.querySelector('input[name="_replyto"]').value = userEmail;
-    
-    // Customize the thank-you email
-    const firstName = document.getElementById('first-name').value;
-    document.querySelector('input[name="_autoresponse"]').value = 
-        `Dear ${firstName},\n\n` +
-        `Thank you for registering as an organ donor with LifeShare!\n\n` +
-        `We've received your registration with the following details:\n` +
-        `Name: ${firstName} ${document.getElementById('last-name').value}\n` +
-        `Blood Type: ${document.getElementById('blood-type').value}\n` +
-        `Donation Type: ${document.getElementById('donation-type').value}\n\n` +
-        `Your commitment to organ donation can save lives. If you have any questions, please contact us at info@lifeshare.org.\n\n` +
-        `Sincerely,\nThe LifeShare Team`;
-    
-    // Validate all steps before submission
-    let allValid = true;
-    const steps = document.querySelectorAll('.form-step');
-    for (let i = 0; i < steps.length; i++) {
-        if (!validateStep(i)) {
-            allValid = false;
-            break;
-        }
-    }
-    
-    if (!allValid) {
-        e.preventDefault();
-        alert('Please fill out all required fields correctly.');
-        return false;
-    }
-    
-    return true;
-});
-
-function validateStep(step) {
-    let isValid = true;
-    const steps = document.querySelectorAll('.form-step');
-    const currentStepFields = steps[step].querySelectorAll('[required]');
-    
-    currentStepFields.forEach(field => {
-        if (!field.value) {
-            field.classList.add('is-invalid');
-            isValid = false;
-        } else {
-            field.classList.remove('is-invalid');
-        }
-        
-        // Special validation for email
-        if (field.type === 'email' && !/^\S+@\S+\.\S+$/.test(field.value)) {
-            field.classList.add('is-invalid');
-            isValid = false;
-        }
-        
-        // Special validation for phone
-        if (field.type === 'tel' && field.value.length < 10) {
-            field.classList.add('is-invalid');
-            isValid = false;
-        }
-    });
-    
-    return isValid;
-}
-        document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     try {
-        setTimeout(function() {
+        setTimeout(function () {
             const loadingElement = document.querySelector('.loading');
             if (loadingElement) {
-                loadingElement.classList.add('hidden');
+                loadingElement.style.display = "none"; // hide completely
             }
         }, 1500);
     } catch (error) {
-        console.error('Error in loading animation:', error);
-    }
-});
-        // Form submission handler
-form.addEventListener('submit', function(e) {
-    // Set the reply-to field to the user's email
-    const userEmail = document.getElementById('email').value;
-    document.querySelector('input[name="_replyto"]').value = userEmail;
-    
-    // Customize the thank-you email
-    const firstName = document.getElementById('first-name').value;
-    document.querySelector('input[name="_autoresponse"]').value = 
-        `Dear ${firstName},\n\n` +
-        `Thank you for registering as an organ donor with LifeShare!\n\n` +
-        `We've received your registration with the following details:\n` +
-        `Name: ${firstName} ${document.getElementById('last-name').value}\n` +
-        `Blood Type: ${document.getElementById('blood-type').value}\n` +
-        `Donation Type: ${document.getElementById('donation-type').value}\n\n` +
-        `Your commitment to organ donation can save lives. If you have any questions, please contact us at info@lifeshare.org.\n\n` +
-        `Sincerely,\nThe LifeShare Team`;
-    
-    // Validate all steps before submission
-    let allValid = true;
-    for (let i = 0; i < steps.length; i++) {
-        if (!validateStep(i)) {
-            allValid = false;
-            break;
+        console.error("JS Error:", error);
+        // Hide loading in case of error
+        const loadingElement = document.querySelector('.loading');
+        if (loadingElement) {
+            loadingElement.style.display = "none";
         }
     }
-    
-    if (!allValid) {
-        e.preventDefault();
-        return false;
-    }
-    
-    return true;
 });
-        document.getElementById('donor-registration-form').addEventListener('submit', function () {
-        const email = document.getElementById('email').value;
-        document.getElementById('reply-to').value = email;
-             });
-        // Loading Animation
-        window.addEventListener('load', function() {
+</script>
+<noscript>
+    <style>
+        .loading { display: none !important; }
+    </style>
+</noscript>
+<script>
+    // Loading Animation
+        document.addEventListener('DOMContentLoaded', function() {
+        try {
             setTimeout(function() {
-                document.querySelector('.loading').classList.add('hidden');
+                const loadingElement = document.querySelector('.loading');
+                if (loadingElement) {
+                    loadingElement.remove();
+
+                }
             }, 1500);
-        });
-        
+        } catch (error) {
+            console.error('Error in loading animation:', error);
+        }
+
         // Theme Toggle
         const themeToggle = document.getElementById('theme-toggle');
         const html = document.documentElement;
@@ -1992,7 +1911,37 @@ form.addEventListener('submit', function(e) {
             updateForm();
         });
         
-        // Form submission
+        // Form submission handler
+        form.addEventListener('submit', function(e) {
+            // Set the reply-to field to the user's email
+            const userEmail = document.getElementById('email').value;
+            document.querySelector('input[name="_replyto"]').value = userEmail;
+            
+            // Customize the thank-you email
+            const firstName = document.getElementById('first-name').value;
+            document.querySelector('input[name="_autoresponse"]').value = 
+                `Dear ${firstName},\n\n` +
+                `Thank you for registering as an organ donor with LifeShare!\n\n` +
+                `We've received your registration with the following details:\n` +
+                `Name: ${firstName} ${document.getElementById('last-name').value}\n` +
+                `Blood Type: ${document.getElementById('blood-type').value}\n` +
+                `Donation Type: ${document.getElementById('donation-type').value}\n\n` +
+                `Your commitment to organ donation can save lives. If you have any questions, please contact us at info@lifeshare.org.\n\n` +
+                `Sincerely,\nThe LifeShare Team`;
+            
+            // Validate all steps before submission
+            let allValid = true;
+            for (let i = 0; i < steps.length; i++) {
+                if (!validateStep(i)) {
+                    allValid = false;
+                    break;
+                }
+            }
+            
+            
+            
+            return true;
+        });
         
         // Initialize form
         updateForm();
@@ -2014,6 +1963,8 @@ form.addEventListener('submit', function(e) {
                 }
             });
         });
-    </script>
+    });
+</script>
+
 </body>
 </html>
